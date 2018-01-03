@@ -1,4 +1,5 @@
 const macAccount = appRequire('plugins/macAccount/index');
+const systemAccount = appRequire('plugins/account/systemAccount');
 
 const formatMacAddress = mac => {
   return mac.replace(/-/g, '').replace(/:/g, '').toLowerCase();
@@ -56,6 +57,28 @@ exports.getMacAccountForUser = (req, res) => {
   const ip = req.headers['x-real-ip'] || req.connection.remoteAddress;
   macAccount.getAccountForUser(mac.toLowerCase(), ip).then(success => {
     res.send(success);
+  }).catch(err => {
+    console.log(err);
+    res.status(403).end();
+  });
+};
+
+exports.getSystemAccount = (req, res) => {
+  systemAccount.getSystemAccount().then(success => {
+    res.send(success);
+  }).catch(err => {
+    console.log(err);
+    res.status(403).end();
+  });
+};
+
+exports.getOneSystemAccount = (req, res) => {
+  const id = +req.params.id;
+  systemAccount.getOneSystemAccount(id).then(success => {
+    if(success[0]) {
+      return res.send(success[0]);
+    }
+    res.status(403).end();
   }).catch(err => {
     console.log(err);
     res.status(403).end();

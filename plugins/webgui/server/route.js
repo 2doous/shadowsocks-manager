@@ -61,6 +61,9 @@ app.put('/api/admin/account/:accountId(\\d+)/port', isAdmin, admin.changeAccount
 app.put('/api/admin/account/:accountId(\\d+)/data', isAdmin, admin.changeAccountData);
 app.delete('/api/admin/account/:accountId(\\d+)', isAdmin, admin.deleteAccount);
 
+app.get('/api/admin/systemAccount', isAdmin, adminAccount.getSystemAccount);
+app.get('/api/admin/systemAccount/:id(\\d+)', isAdmin, adminAccount.getOneSystemAccount);
+
 app.get('/api/admin/account/mac', isAdmin, adminAccount.getMacAccount);
 app.post('/api/admin/account/mac/:macAddress', isAdmin, adminAccount.addMacAccount);
 app.put('/api/admin/account/mac', isAdmin, adminAccount.editMacAccount);
