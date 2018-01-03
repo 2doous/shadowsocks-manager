@@ -347,19 +347,27 @@ app.controller('AdminAccountController', ['$scope', '$state', '$stateParams', '$
   ($scope, $state, $stateParams, $http, $mdBottomSheet, alertDialog) => {
     $scope.setTitle('添加账号');
     $scope.setMenuButton('arrow_back', 'admin.account');
-    $scope.typeList = [
-      {key: '不限量', value: 1},
-      {key: '按周', value: 2},
-      {key: '按月', value: 3},
-      {key: '按天', value: 4},
-      {key: '小时', value: 5},
-    ];
-    $scope.timeLimit = {
-      '2': 7 * 24 * 3600000,
-      '3': 30 * 24 * 3600000,
-      '4': 24 * 3600000,
-      '5': 3600000,
-    };
+    $http.get('/api/admin/systemAccount').then(success=> {
+      $scope.systemAccounts = success.data;
+      $scope.timeLimit = {};
+      $scope.systemAccounts.forEach(f => {
+        $scope.timeLimit[f.id] = f.time;
+      });
+    });
+    // $scope.typeList = [
+    //   {key: '不限量', value: 1},
+    //   {key: '按周', value: 2},
+    //   {key: '按月', value: 3},
+    //   {key: '按天', value: 4},
+    //   {key: '小时', value: 5},
+    // ];
+    // $scope.timeLimit = {
+    //   '2': 7 * 24 * 3600000,
+    //   '3': 30 * 24 * 3600000,
+    //   '4': 24 * 3600000,
+    //   '5': 3600000,
+    // };
+    
     $scope.account = {
       time: Date.now(),
       limit: 1,

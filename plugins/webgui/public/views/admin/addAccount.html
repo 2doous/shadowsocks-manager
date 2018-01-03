@@ -9,9 +9,9 @@
                     <label translate>类型</label>
                     <div layout="row">
                         <md-select ng-model="account.type" flex="75">
-                            <md-option ng-repeat="type in typeList" value="{{type.value}}" translate>{{type.key}}</md-option>
+                            <md-option ng-repeat="account in systemAccounts" value="{{account.id}}" translate>{{account.name}}</md-option>
                         </md-select>
-                        <div ng-if="+account.type >= 2 && +account.type <= 5" layout="row" layout-align="end center">
+                        <div layout="row" layout-align="end center">
                             <md-button ng-click="pickTime()">
                                 <md-icon class="material-icons">access_time</md-icon>
                             </md-button>

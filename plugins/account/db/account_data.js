@@ -8,6 +8,7 @@ const createTable = async() => {
   }
   return knex.schema.createTableIfNotExists(tableName, function(table) {
     table.increments('id');
+    table.integer('accountId');
     table.integer('userId');
     table.string('server');
     table.bigInteger('time');
